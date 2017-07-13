@@ -1,7 +1,8 @@
 # == Class samba::server::ads
 # This module join samba server to Active Dirctory
 #
-class samba::server::ads($ensure = present,
+class samba::server::ads(
+  $ensure                     = present,
   $winbind_acct               = 'admin',
   $winbind_pass               = 'SecretPass',
   $realm                      = 'domain.com',
@@ -30,7 +31,7 @@ class samba::server::ads($ensure = present,
   }
 
   if $::osfamily == 'RedHat' {
-    if $::operatingsystemrelease =~ /^6\./ {
+    if $::operatingsystemrelease =~ /^6\./ or $::operatingsystemrelease =~ /^7\./ {
       $winbind_package = 'samba-winbind'
     } else {
       $winbind_package = 'samba-common'
